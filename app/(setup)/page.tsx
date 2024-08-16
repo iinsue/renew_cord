@@ -1,3 +1,4 @@
+import { InitialModal } from "@/components/modals/initial-modal";
 import { ModeToggle } from "@/components/mode-toggle";
 import { db } from "@/lib/db";
 import { initialProfile } from "@/lib/initial-profile";
@@ -21,7 +22,7 @@ const SetupPage = async () => {
   }
   return (
     <div className="flex h-full items-center justify-center">
-      <UserButton afterSwitchSessionUrl="/" />
+      <InitialModal />
       <ModeToggle />
     </div>
   );
