@@ -15,7 +15,7 @@ export const NavigationSidebar = async () => {
 
   // root로 가면 프로필 API를 타게 된다.
   if (!profile) {
-    return redirect("/");
+    return redirect("/sign-in");
   }
 
   const servers = await db.server.findMany({
