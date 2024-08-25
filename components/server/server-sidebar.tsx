@@ -4,6 +4,7 @@ import { ChannelType } from "@prisma/client";
 import { channel } from "diagnostics_channel";
 import { redirect } from "next/navigation";
 import { ServerHeader } from "./server-header";
+import { ServerChannel } from "./server-channel";
 
 type Props = {
   serverId: string;
@@ -63,6 +64,18 @@ export const ServerSidebar = async ({ serverId }: Props) => {
     <>
       <div className="flex h-full w-full flex-col bg-[#F2F3F5] text-primary dark:bg-[#2B2D31]">
         <ServerHeader server={server} role={role} />
+        {!!textChannels?.length && (
+          <div className="mb-2">
+            {textChannels.map((channel) => (
+              <ServerChannel
+                key={channel.id}
+                channel={channel}
+                role={role}
+                server={server}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </>
   );
