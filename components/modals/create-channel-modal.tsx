@@ -72,6 +72,8 @@ export const CreateChannelModal = () => {
       });
 
       await axios.post(url, values);
+      form.reset();
+      router.refresh();
       onClose();
     } catch (error) {
       console.log(error);
@@ -121,7 +123,11 @@ export const CreateChannelModal = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Channel Type</FormLabel>
-                      <Select>
+                      <Select
+                        disabled={isLoading}
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
                         <FormControl>
                           <SelectTrigger className="border-0 bg-zinc-300/50 capitalize text-black outline-none ring-offset-0 focus:ring-0 focus:ring-offset-0">
                             <SelectValue placeholder="Select a channel type" />
