@@ -31,9 +31,19 @@ export const ServerChannel = ({
 
   const Icon = iconMap[channel.type];
 
+  const onClick = () => {
+    router.push(`/servers/${params?.serverId}/channels/${channel.id}`);
+  };
+
+  const onAction = (event: React.MouseEvent, action: ModalType) => {
+    event.stopPropagation();
+    onOpen(action, { channel, server });
+  };
+
   return (
     <>
       <button
+        onClick={onClick}
         className={cn(
           `group mb-1 flex w-full items-center gap-x-2 rounded-md p-2 transition hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50`,
           params?.channelId === channel.id && "bg-zinc-700/20",
@@ -53,13 +63,13 @@ export const ServerChannel = ({
           <div className="ml-auto flex items-center gap-x-2">
             <ActionTooltip label="Edit">
               <Edit
-                onClick={() => onOpen("editChannel", { server, channel })}
+                onClick={(event) => onAction(event, "editChannel")}
                 className="hidden size-4 text-zinc-500 transition hover:text-zinc-600 group-hover:block dark:text-zinc-400 dark:hover:text-zinc-300"
               />
             </ActionTooltip>
             <ActionTooltip label="Delete">
               <Trash
-                onClick={() => onOpen("deleteChannel", { server, channel })}
+                onClick={(event) => onAction(event, "deleteChannel")}
                 className="hidden size-4 text-zinc-500 transition hover:text-zinc-600 group-hover:block dark:text-zinc-400 dark:hover:text-zinc-300"
               />
             </ActionTooltip>
