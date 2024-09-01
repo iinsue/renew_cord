@@ -22,7 +22,7 @@ export const useSocket = () => {
 };
 
 export const SocketProvider = ({ children }: ProviderProps) => {
-  const [socket, setSocket] = useState<Socket>();
+  const [socket, setSocket] = useState<Socket | null>(null);
   const [isConnected, setIsConneted] = useState(false);
 
   useEffect(() => {
