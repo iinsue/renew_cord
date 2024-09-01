@@ -120,7 +120,7 @@ model Conversation {
   memberOneId String
   memberOne   Member @relation("MemberOne", fields: [memberOneId], references: [id], onDelete: Cascade)
   memberTwoId String
-  memberTwos  Member @relation("MemberTwo", fields: [memberTwoId], references: [id], onDelete: Cascade)
+  memberTwo   Member @relation("MemberTwo", fields: [memberTwoId], references: [id], onDelete: Cascade)
 
   @@unique([memberOneId, memberTwoId])
   @@index([memberTwoId])
