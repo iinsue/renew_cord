@@ -18,26 +18,25 @@ export const useChatQuery = ({
 }: ChatQueryProps) => {
   const { isConnected } = useSocket();
 
-  const fetchMessages = async ({ pageParams = undefined }) => {
-    const url = qs.stringifyUrl(
-      {
-        url: apiUrl,
-        query: {
-          cursor: pageParams,
-          [paramKey]: paramValue,
-        },
-      },
-      { skipNull: true },
-    );
-    const response = await fetch(url);
-    return response.json();
-  };
-
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
     useInfiniteQuery({
       queryKey: [queryKey],
-      queryFn: fetchMessages,
-      getNextPageParam: (lastPage) => lastPage?.nextCursor,
+      queryFn: async ({ pageParam }) => {
+        const url = qs.stringifyUrl(
+          {
+            url: apiUrl,
+            query: {
+              cursor: pageParam,
+              [paramKey]: paramValue,
+            },
+          },
+          { skipNull: true },
+        );
+        const response = await fetch(url);
+        return response.json();
+      },
+      initialPageParam: null,
+      getNextPageParam: (lastPage) => lastPage?.nextCursor ?? undefined,
       refetchInterval: isConnected ? false : 1000,
     });
 
