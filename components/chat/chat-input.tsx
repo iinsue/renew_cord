@@ -7,6 +7,7 @@ import qs from "query-string";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import { useModal } from "@/hooks/use-modal-store";
 import { Input } from "@/components/ui/input";
 import { Plus, Smile } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -23,6 +24,8 @@ const formSchema = z.object({
 });
 
 export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
+  const { onOpen } = useModal();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -58,7 +61,7 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
                 <div className="relative p-4 pb-6">
                   <button
                     type="button"
-                    onClick={() => {}}
+                    onClick={() => onOpen("messageFile", { apiUrl, query })}
                     className={cn(
                       "absolute left-8 top-7 flex size-6 items-center justify-center rounded-full bg-zinc-500 p-1",
                       "transition hover:bg-zinc-600 dark:bg-zinc-400 dark:hover:bg-zinc-300",
