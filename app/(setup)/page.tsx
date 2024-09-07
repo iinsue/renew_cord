@@ -1,9 +1,7 @@
-import { InitialModal } from "@/components/modals/initial-modal";
-import { ModeToggle } from "@/components/mode-toggle";
 import { db } from "@/lib/db";
-import { initialProfile } from "@/lib/initial-profile";
-import { UserButton } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
+import { initialProfile } from "@/lib/initial-profile";
+import { InitialModal } from "@/components/modals/initial-modal";
 
 const SetupPage = async () => {
   const profile = await initialProfile();
@@ -23,7 +21,6 @@ const SetupPage = async () => {
   return (
     <div className="flex h-full items-center justify-center">
       <InitialModal />
-      <ModeToggle />
     </div>
   );
 };
